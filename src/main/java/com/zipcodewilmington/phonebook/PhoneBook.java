@@ -1,45 +1,70 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by leon on 1/23/18.
  */
 public class PhoneBook {
+    private Map<String,List<String>> map;
+    private List<String> list = new ArrayList<>();
+
     public PhoneBook(Map<String, List<String>> map) {
+        this.map = map;
     }
 
     public PhoneBook() {
-        this(null);
+        map = new HashMap<String, List<String>>();
     }
 
     public void add(String name, String phoneNumber) {
+        list.add(phoneNumber);
+        map.put(name, list);
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        for (String string: phoneNumbers) {
+            list.add(string);
+        }
+        map.put(name,list);
     }
 
     public void remove(String name) {
+        map.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        Boolean result;
+        if (map.containsKey(name)) {
+            return true;}
+        else if (list.contains(name)) {
+            return true;}
+        else return false;
     }
 
     public List<String> lookup(String name) {
-        return null;
+        return map.get(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
-        return null;
+        String result= "";
+        for (Map.Entry<String,List<String>> entry: map.entrySet()
+        ) {
+            result = entry.getKey();
+        }
+        return result;
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String,List<String>> entry: map.entrySet()
+        ) {
+            result.add(entry.getKey());
+        }
+        return result;
     }
 
     public Map<String, List<String>> getMap() {
-        return null;
+        return this.map;
     }
 }
